@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
+    <PackageReference Include="Stripe.net" Version="37.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Initializer" />
+    <Folder Include="Migrations" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TasteRazor.Models\TasteRazor.Models.csproj" />
+    <ProjectReference Include="..\TasteRazor.Utility\TasteRazor.Utility.csproj" />
+  </ItemGroup>
+
+</Project>

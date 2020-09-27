@@ -1,0 +1,136 @@
+@page
+@model TasteRazor.Pages.Admin.MenuItem.UpsertModel
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+  <div class="container">
+    <div class="row px-2 mx-2 backgroundWhite border">
+      <div class="danger" asp-validation-summary="ModelOnly"></div>
+      @if (Model.ViewModel.MenuItem.Id != 0)
+      {
+        <input type="hidden" asp-for="ViewModel.MenuItem.Id">
+      }
+      <div class="col-12 px-3" style="border-bottom:1px solid #325388">
+        <h2 class="text-primary">@(Model.ViewModel.MenuItem.Id != 0 ? "Update" : "Create") Menu Item</h2>
+      </div>
+
+      <div class="col-8 pt-3">
+        <div class="form-group row">
+          <div class="col-3">
+            <label asp-for="ViewModel.MenuItem.Name"></label>
+          </div>
+          <div class="col-9">
+            <input type="text" asp-for="ViewModel.MenuItem.Name" class="form-control">
+            <span class="text-danger" asp-validation-for="ViewModel.MenuItem.Name"></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-3">
+            <label asp-for="ViewModel.MenuItem.Price"></label>
+          </div>
+          <div class="col-9">
+            <input type="text" asp-for="ViewModel.MenuItem.Price" class="form-control">
+            <span class="text-danger" asp-validation-for="ViewModel.MenuItem.Price"></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-3">
+            <label asp-for="ViewModel.MenuItem.Description"></label>
+          </div>
+          <div class="col-9">
+            <textarea type="text"
+                      id="txtDescription"
+                      asp-for="ViewModel.MenuItem.Description"
+                      class="form-control"
+                      style="height: 200px;">
+            </textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-3">
+            <label asp-for="ViewModel.MenuItem.Image"></label>
+          </div>
+          <div class="col-9">
+            <input type="file" name="files" id="uploadBox" class="form-control">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-3">
+            <label asp-for="ViewModel.MenuItem.CategoryId"></label>
+          </div>
+          <div class="col-9">
+            <select class="form-control"
+                    asp-for="ViewModel.MenuItem.CategoryId"
+                    asp-items="Model.ViewModel.CategoryList">
+              <option disabled selected>- Please select a Category -</option>
+            </select>
+            <span class="text-danger" asp-validation-for="ViewModel.MenuItem.CategoryId"></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-3">
+            <label asp-for="ViewModel.MenuItem.FoodTypeId"></label>
+          </div>
+          <div class="col-9">
+            <select class="form-control"
+                    asp-for="ViewModel.MenuItem.FoodTypeId"
+                    asp-items="Model.ViewModel.FoodTypeList">
+              <option disabled selected>- Please select a Food Type -</option>
+            </select>
+            <span class="text-danger" asp-validation-for="ViewModel.MenuItem.FoodTypeId"></span>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-9 offset-3">
+            <div class="row">
+              <div class="col-6">
+                @if (Model.ViewModel.MenuItem.Id != 0)
+                {
+                  <button class="btn btn-primary form-control" type="submit">Update</button>
+                }
+                else
+                {
+                  <button class="btn btn-primary form-control"
+                          onclick="return ValidateInput()"
+                          type="submit">
+                    Create
+                  </button>
+                }
+              </div>
+              <div class="col-6">
+                <a asp-page="./Index" class="btn btn-success form-control">Back to List</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      @if (Model.ViewModel.MenuItem != null)
+      {
+        <div class="col-4 p-4">
+          <img src="~/images/menuItems/@Model.ViewModel.MenuItem.Image"
+               alt="@Model.ViewModel.MenuItem.Name"
+               style="width: 100%; border-radius: 5px; border: 1px solid #bbb9b9"/>
+        </div>
+      }
+    </div>
+  </div>
+</form>
+
+@section Scripts
+{
+  <script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'lists',
+      menubar: 'file edit format'
+    });
+
+    function ValidateInput() {
+      if (!document.getElementById('uploadBox').value) {
+        swal("Error", "Please select an image", "error");
+        return false;
+      }
+      return true;
+    }
+  </script>
+}
