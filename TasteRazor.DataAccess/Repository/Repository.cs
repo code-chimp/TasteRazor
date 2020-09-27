@@ -21,7 +21,8 @@ namespace TasteRazor.DataAccess.Repository
 
         private IQueryable<T> FormatQuery(
             Expression<Func<T, bool>> filter = null,
-            string includeProperties = null)
+            string includeProperties = null,
+            bool enableTracking = false)
         {
             IQueryable<T> query = EntitySet;
 
@@ -41,7 +42,12 @@ namespace TasteRazor.DataAccess.Repository
                     (current, property) => current.Include(property));
             }
 
-            return query.AsNoTracking();
+            if (!enableTracking)
+            {
+                query = query.AsNoTracking();
+            }
+
+            return query;
         }
 
         public T Get(int id)
@@ -78,18 +84,20 @@ namespace TasteRazor.DataAccess.Repository
 
         public T GetFirstOrDefault(
             Expression<Func<T, bool>> filter = null,
-            string includeProperties = null)
+            string includeProperties = null,
+            bool enableTracking = false)
         {
-            var query = FormatQuery(filter, includeProperties);
+            var query = FormatQuery(filter, includeProperties, enableTracking);
 
             return query.FirstOrDefault();
         }
 
         public async Task<T> GetFirstOrDefaultAsync(
             Expression<Func<T, bool>> filter = null,
-            string includeProperties = null)
+            string includeProperties = null,
+            bool enableTracking = false)
         {
-            var query = FormatQuery(filter, includeProperties);
+            var query = FormatQuery(filter, includeProperties, enableTracking);
 
             return await query.FirstOrDefaultAsync();
         }

@@ -1,14 +1,17 @@
 using System;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TasteRazor.DataAccess.Repository.Contracts;
+using TasteRazor.Utility;
 using TasteRazor.ViewModels;
 
 namespace TasteRazor.Pages.Admin.MenuItem
 {
-    public class UpsertModel : PageModel
+    [Authorize(Roles = Constants.ManagerRole)]
+    public class Upsert : PageModel
     {
         private readonly IUnitOfWork _service;
         private readonly IWebHostEnvironment _env;
@@ -16,7 +19,7 @@ namespace TasteRazor.Pages.Admin.MenuItem
         [BindProperty]
         public MenuItemUpsert ViewModel { get; set; }
 
-        public UpsertModel(IUnitOfWork service, IWebHostEnvironment env)
+        public Upsert(IUnitOfWork service, IWebHostEnvironment env)
         {
             _service = service;
             _env = env;

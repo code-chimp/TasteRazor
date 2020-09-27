@@ -2,6 +2,9 @@ namespace TasteRazor.Utility
 {
     public class Constants
     {
-        public static string Magic = "Magic";
+        public const string ManagerRole = "Manager";
+        public const string FrontDeskRole = "FrontDesk";
+        public const string KitchenRole = "Kitchen";
+        public const string CustomerRole = "Customer";
     }
 }

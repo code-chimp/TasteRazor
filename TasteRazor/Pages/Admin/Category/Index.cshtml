@@ -1,35 +1,41 @@
 @page
+@using TasteRazor.Utility
 
-@{
-  ViewData["Title"] = "Index";
+@if (User.IsInRole(Constants.ManagerRole))
+{
+  <div class="border backgroundWhite container">
+    <div class="row">
+      <div class="col-6">
+        <h2 class="text-primary">Category List</h2>
+      </div>
+      <div class="col-6 text-right">
+        <a class="btn btn-primary text-white" asp-page="Upsert">
+          <i class="fas fa-plus"></i>&nbsp;Create New
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
+          <thead>
+          <tr>
+            <th>Categoy Name</th>
+            <th>Display Order</th>
+            <th></th>
+          </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+}
+else
+{
+  <div>
+    <h1 class="text-danger">Access Denied</h1>
+  </div>
 }
 
-<div class="border backgroundWhite container">
-  <div class="row">
-    <div class="col-6">
-      <h2 class="text-primary">Category List</h2>
-    </div>
-    <div class="col-6 text-right">
-      <a class="btn btn-primary text-white" asp-page="Upsert">
-        <i class="fas fa-plus"></i>&nbsp;Create New
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
-        <thead>
-        <tr>
-          <th>Categoy Name</th>
-          <th>Display Order</th>
-          <th></th>
-        </tr>
-        </thead>
-      </table>
-
-    </div>
-  </div>
-</div>
 
 @section Scripts {
   <script src="~/js/category.js"></script>

@@ -24,11 +24,13 @@ namespace TasteRazor.DataAccess.Repository.Contracts
 
         T GetFirstOrDefault(
             Expression<Func<T, bool>> filter = null,
-            string includeProperties = null
+            string includeProperties = null,
+            bool enableTracking = false
         );
         Task<T> GetFirstOrDefaultAsync(
             Expression<Func<T, bool>> filter = null,
-            string includeProperties = null
+            string includeProperties = null,
+            bool enableTracking = false
         );
 
         void Add(T entity);

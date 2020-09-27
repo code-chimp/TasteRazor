@@ -1,14 +1,17 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TasteRazor.DataAccess.Repository.Contracts;
+using TasteRazor.Utility;
 
 namespace TasteRazor.Pages.Admin.FoodType
 {
-    public class UpsertModel : PageModel
+    [Authorize(Roles = Constants.ManagerRole)]
+    public class Upsert : PageModel
     {
         private readonly IUnitOfWork _service;
 
-        public UpsertModel(IUnitOfWork service)
+        public Upsert(IUnitOfWork service)
         {
             _service = service;
         }
